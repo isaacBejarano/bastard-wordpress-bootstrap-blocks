@@ -1,4 +1,4 @@
-alert("Bastard Blocks v2 loaded :)");
+alert("Bastard Blocks v1.0.0_alpha1 loaded :)");
 
 // React ICON
 const snakeIcon = wp.element.createElement(

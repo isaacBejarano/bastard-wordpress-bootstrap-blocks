@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Bastard Blocks
  * Author: Isaac Bejarano
- * Version: 1.1.0
+ * Version: 1.0.0_alpha1
  * License: MIT
  */
 
