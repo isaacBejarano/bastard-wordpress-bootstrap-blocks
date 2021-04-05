@@ -1,4 +1,4 @@
-alert("Bastard Img 1");
+// alert("Bastard Blocks loaded :)");
 
 // React ICON
 const snakeIcon = wp.element.createElement(
@@ -138,101 +138,68 @@ const snakeIcon = wp.element.createElement(
 	wp.element.createElement("rect", { x: "0", y: "0", width: "64", height: "64", fill: "rgba(0, 0, 0, 0)" })
 );
 
-wp.blocks.registerBlockType("bastard/img", {
+// 1. B5 IMAGE (w-100)
+wp.blocks.registerBlockType("bastard/img-100", {
 	title: "Bastard - Image",
 	icon: snakeIcon,
 	category: "layout",
-	// attributes: {
-	// 	img: { type: "string" },
-	// 	text: { type: "string" },
-	// },
-	edit: function (props) {
-		// function updateImg(event) {
-		// 	props.setAttributes({ img: event.target.value });
-		// }
-		// function updateContent(event) {
-		// 	props.setAttributes({ content: event.target.value });
-		// }
-		// function updateColor(value) {
-		// 	props.setAttributes({ color: value.hex });
-		// }
-		// return wp.element.createElement(
-		// 	"div",
-		// 	null,
-		// 	wp.element.createElement("h3", null, "I'm a Bastard"),
-		// 	wp.element.createElement("input", { type: "text", value: props.attributes.content, onChange: updateContent }),
-		// 	wp.element.createElement(wp.components.ColorPicker, {
-		// 		color: props.attributes.color,
-		// 		onChangeComplete: updateColor,
-		// 	})
-		// );
+	// EDIT
+	edit: function () {
+		return wp.element.createElement(wp.blockEditor.InnerBlocks, {
+			template: [["core/image", { style: "border: 3px solid deeppink;" }]],
+			templateLock: "all",
+			allowedBlocks: ["core/image"],
+		});
+	},
+	// SAVE
+	save: function () {
+		return wp.element.createElement(
+			"img",
+			{
+				class: "w-100 border border-3 border-danger p-3",
+			},
+			wp.element.createElement(wp.blockEditor.InnerBlocks.Content, {})
+		);
+	},
+});
 
-		// BASTARD
+// 2. B5 2 COLUMNS (col-12 col-lg-6)
+wp.blocks.registerBlockType("bastard/two-col", {
+	title: "Bastard - 2 Columns",
+	icon: snakeIcon,
+	category: "layout",
+	// EDIT
+	edit: function () {
 		return wp.element.createElement(wp.blockEditor.InnerBlocks, {
 			template: [
 				[
 					"core/columns",
 					{ columns: 2, className: "row border border-warning border-2 p-4" },
 					[
-						// 1
+						// START:
 						[
 							"core/column",
-							{ className: "col-12 col-lg-6 border border-sucess p-4" },
-							[["core/paragraph", { placeholder: "Enter heading..." }]],
+							{ className: "col-12 col-lg-6 border border-sucess p-4", placeholder: "Select START Column..." },
+							// [["bastard/img-100", { placeholder: "Select image..." }]],
 						],
-						// 2
+						// END: paragraph
 						[
 							"core/column",
-							{ className: "col-12 col-lg-6  border border-sucess p-4" },
-							[["core/image", { placeholder: "Type in text here" }]],
+							{ className: "col-12 col-lg-6 border border-sucess p-4", placeholder: "Select END Column..." },
+							// [["core/paragraph", { placeholder: "Enter text..." }]],
 						],
-						// 3
-						// ["core/column", {}, [["bastard/imgage 400px]]],
 					],
 				],
 			],
-			// templateLock: "all",
-			// allowedBlocks: ["core/column","core/paragraph","core/image"],
+			templateLock: "all",
+			allowedBlocks: [
+				"core/column",
+				// , "core/paragraph", "core/image"
+			],
 		});
 	},
-	save: function (props) {
-		// return wp.element.createElement(
-		// 	"h3",
-		// 	{ style: { border: "5px solid " + props.attributes.color } },
-		// 	props.attributes.content
-		// );
-
-		// BASTARD
-		// return wp.element.createElement(
-		// 	"div",
-		// 	wp.blockEditor.useBlockProps().save(),
-		// 	wp.element.createElement(wp.blockEditor.InnerBlocks.Content, null)
-		// );
-
-		// return wp.element.createElement(
-		// 	"div",
-		// 	{ class: "container-fluid" },
-		// 	wp.element.createElement(
-		// 		"div",
-		// 		{ class: "row border border-danger p-4" },
-		// 		// Start - IMG
-		// 		wp.element.createElement(
-		// 			"div",
-		// 			{ class: "col-12 col-lg-6 border p-2" },
-		// 			wp.blockEditor.useBlockProps().save(),
-		// 			wp.element.createElement(wp.blockEditor.InnerBlocks.Content, null)
-		// 		),
-		// 		// End - P
-		// 		wp.element.createElement(
-		// 			"div",
-		// 			{ class: "col-12 col-lg-6 border p-2" },
-		// 			wp.blockEditor.useBlockProps().save(),
-		// 			wp.element.createElement(wp.blockEditor.InnerBlocks.Content, null)
-		// 		)
-		// 	)
-		// );
-
-		//
+	// SAVE
+	save: function () {
 		return wp.element.createElement(
 			"div",
 			{
@@ -242,15 +209,3 @@ wp.blocks.registerBlockType("bastard/img", {
 		);
 	},
 });
-
-/*
-
-	template: [
-				["core/column", {}, [["core/image", { placeholder: "Load image from Media here" }]]],
-				["core/column", {}, [["core/paragraph", { placeholder: "Type in text here" }]]],
-			],
-			templateLock: "all",
-			allowedBlocks: ["core/column"],
-
-
-			*/

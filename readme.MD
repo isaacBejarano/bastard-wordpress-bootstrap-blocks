@@ -9,6 +9,7 @@ License URI:       http://www.gnu.org/licenses/gpl-3.0.html
 
 ## Description ##
 
-What this plugin does:
+This plugin provides:
 
-* Povides a responsive twbs-Bootstrap5-ready 2 columns block
+* A responsive "col-12 col-lg-6" twbs-Bootstrap5-ready "2 Columns block"
+* A responsive "100-w" twbs-Bootstrap5-ready "Image block"
