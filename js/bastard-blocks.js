@@ -1,4 +1,4 @@
-// alert("Bastard Blocks loaded :)");
+alert("Bastard Blocks v2 loaded :)");
 
 // React ICON
 const snakeIcon = wp.element.createElement(
@@ -143,10 +143,22 @@ wp.blocks.registerBlockType("bastard/img-100", {
 	title: "Bastard - Image",
 	icon: snakeIcon,
 	category: "layout",
+	attributes: {},
+	// FIXME: attrs
 	// EDIT
 	edit: function () {
 		return wp.element.createElement(wp.blockEditor.InnerBlocks, {
-			template: [["core/image", { style: "border: 3px solid deeppink;" }]],
+			template: [
+				[
+					"core/image",
+					{
+						style: {
+							border: "3px solid deeppink",
+							padding: "1rem",
+						},
+					},
+				],
+			],
 			templateLock: "all",
 			allowedBlocks: ["core/image"],
 		});
@@ -157,6 +169,9 @@ wp.blocks.registerBlockType("bastard/img-100", {
 			"img",
 			{
 				class: "w-100 border border-3 border-danger p-3",
+				loading: "lazy",
+				height: "auto",
+				alt: "bastard img",
 			},
 			wp.element.createElement(wp.blockEditor.InnerBlocks.Content, {})
 		);
@@ -179,13 +194,13 @@ wp.blocks.registerBlockType("bastard/two-col", {
 						// START:
 						[
 							"core/column",
-							{ className: "col-12 col-lg-6 border border-sucess p-4", placeholder: "Select START Column..." },
+							{ className: "col-12 col-lg-6 text-break border p-4", placeholder: "Select START Column..." },
 							// [["bastard/img-100", { placeholder: "Select image..." }]],
 						],
 						// END: paragraph
 						[
 							"core/column",
-							{ className: "col-12 col-lg-6 border border-sucess p-4", placeholder: "Select END Column..." },
+							{ className: "col-12 col-lg-6 text-break border p-4", placeholder: "Select END Column..." },
 							// [["core/paragraph", { placeholder: "Enter text..." }]],
 						],
 					],
