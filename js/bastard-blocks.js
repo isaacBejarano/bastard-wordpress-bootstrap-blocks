@@ -1,7 +1,12 @@
-alert("Bastard Blocks v1.0.0_alpha1 loaded :)");
+alert("Bastard Blocks v1.0.0_alpha9");
+// React Destructuring
+const { __ } = wp.i18n;
+const { registerBlockType } = wp.blocks;
+const { createElement } = wp.element;
+const { InnerBlocks } = wp.editor;
 
 // React ICON
-const snakeIcon = wp.element.createElement(
+const snakeIcon = createElement(
 	"svg",
 	{
 		width: 20,
@@ -139,88 +144,85 @@ const snakeIcon = wp.element.createElement(
 );
 
 // 1. B5 IMAGE (w-100)
-wp.blocks.registerBlockType("bastard/img-100", {
-	title: "Bastard - Image",
+registerBlockType("bastard/img-100", {
+	title: __("Bastard - Image"),
+	keywords: [__("Bastard - Image")],
 	icon: snakeIcon,
 	category: "layout",
-	attributes: {},
+	attributes: {
+		imgID: { type: "number" },
+	},
 	// FIXME: attrs
 	// EDIT
-	edit: function () {
-		return wp.element.createElement(wp.blockEditor.InnerBlocks, {
+	edit: function (props) {
+		// hook
+		function updateImg(e) {
+			props.setAttributes({ img: e.source_url });
+		}
+
+		// return
+		return createElement(InnerBlocks, {
 			template: [
-				[
-					"core/image",
-					{
-						style: {
-							border: "3px solid deeppink",
-							padding: "1rem",
-						},
-					},
-				],
+				["core/image"],
+				{
+					// accept: "image/*", // file type
+					source_url: props.attributes.img, // value is path
+					onChange: updateImg, // hook
+				},
 			],
 			templateLock: "all",
 			allowedBlocks: ["core/image"],
 		});
 	},
 	// SAVE
-	save: function () {
-		return wp.element.createElement(
+	save: function (props) {
+		return createElement(
 			"img",
 			{
-				class: "w-100 border border-3 border-danger p-3",
+				class: "w-100" + props.attributes.img,
 				loading: "lazy",
 				height: "auto",
 				alt: "bastard img",
 			},
-			wp.element.createElement(wp.blockEditor.InnerBlocks.Content, {})
+			createElement(InnerBlocks.Content, {})
 		);
 	},
 });
 
 // 2. B5 2 COLUMNS (col-12 col-lg-6)
-wp.blocks.registerBlockType("bastard/two-col", {
+registerBlockType("bastard/two-col", {
 	title: "Bastard - 2 Columns",
 	icon: snakeIcon,
 	category: "layout",
 	// EDIT
 	edit: function () {
-		return wp.element.createElement(wp.blockEditor.InnerBlocks, {
+		return createElement(InnerBlocks, {
 			template: [
 				[
+					// ROW
 					"core/columns",
-					{ columns: 2, className: "row border border-warning border-2 p-4" },
+					{ columns: 2, className: "row" },
 					[
-						// START:
-						[
-							"core/column",
-							{ className: "col-12 col-lg-6 text-break border p-4", placeholder: "Select START Column..." },
-							// [["bastard/img-100", { placeholder: "Select image..." }]],
-						],
-						// END: paragraph
-						[
-							"core/column",
-							{ className: "col-12 col-lg-6 text-break border p-4", placeholder: "Select END Column..." },
-							// [["core/paragraph", { placeholder: "Enter text..." }]],
-						],
+						// COL 1/2
+						["core/column", { className: "col-12 col-lg-6 text-break" }],
+
+						// COL 2/2
+						["core/column", { className: "col-12 col-lg-6 text-break" }],
 					],
 				],
 			],
 			templateLock: "all",
-			allowedBlocks: [
-				"core/column",
-				// , "core/paragraph", "core/image"
-			],
+			allowedBlocks: ["core/columns", "core/column"],
 		});
 	},
 	// SAVE
 	save: function () {
-		return wp.element.createElement(
+		return createElement(
 			"div",
 			{
-				class: "container-fluid border border-3 border-danger p-4",
+				class: "container-fluid",
 			},
-			wp.element.createElement(wp.blockEditor.InnerBlocks.Content, {})
+			createElement(InnerBlocks.Content, {})
 		);
 	},
 });

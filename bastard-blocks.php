@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Bastard Blocks
  * Author: Isaac Bejarano
- * Version: 1.0.0_alpha1
+ * Version: 1.0.0_alpha3
  * License: MIT
  */
 
@@ -18,11 +18,7 @@ function loadBastardBlocks() {
   
   wp_register_style(
     'bastard-styles', 
-    plugin_dir_url(__FILE__) . '/css/bastard-editor-styles.css',
-    false, 
-    false, 
-    true 
-  
+    plugin_dir_url(__FILE__) . '/css/bastard-editor-styles.css'    
   );
 
 
