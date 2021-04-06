@@ -1,4 +1,4 @@
-alert("Bastard Blocks v1.0.0_beta4");
+// alert("Bastard Blocks v1.0.0");
 
 const { registerBlockType } = wp.blocks;
 const { InspectorControls, MediaUpload, MediaUploadCheck, InnerBlocks } = wp.blockEditor;
